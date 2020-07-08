@@ -20,7 +20,7 @@ $ python3 md5
 ```
 
 # Screenshot
-<img src="https://l.top4top.io/p_1650sw2x60.png">
+
 <img src="https://i.top4top.io/p_16502k8be0.jpg">
 
 # Account
