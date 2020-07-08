@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -f "$1" ] && [ -n "$2" ] && [ ${#2} == 32 ] 
+then # Checks whether the file exists and is not a directory, if the hash has been passed and if it has 32 characters
+total_hash=$(wc -l $1 | cut -d " " -f1)
+printf "\033[1;37m[\033[1;32m+\033[1;37m] Crack hash: \033[1;31m${2}\n"
+printf "\033[1;37m[\033[1;32m+\033[1;37m] Total wordlist: \033[1;32m${total_hash}\n"
+printf "\033[1;37m[\033[1;32m+\033[1;37m] Please wait\n"
+sleep 3
+  for line in $(cat $1); do
+    v=$line
+    hash="$(echo -n "$v" | md5sum | sed 's/ //g' | sed 's/-//g')"; # Encrypts and treats wordlist password
+    if [ $hash = $2 ] # Checks if password found
+    then
+      echo -e "\033[1;37m[\033[1;32m+\033[1;37m] \033[1;32m$hash \033[1;37m=> \033[1;32m$v"
+      echo -e $hash'=>'$v >> result.txt
+      echo -e '\033[1;37m[\033[1;32m+\033[1;37m] \033[1;37mseved result.txt'
+      exit 1
+    else
+      let cont=$cont+1;
+      # Shows the script flow in operation
+      echo -e "\033[1;37m[\033[1;31m+\033[1;37m] \033[1;32m$hash \033[1;37m=> \033[1;33mNot Found"
+    fi
+  done
+else
+  echo -e "use: ./brute <wordlist> <hash>"
+fi

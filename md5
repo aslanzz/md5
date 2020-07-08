@@ -1,0 +1,150 @@
+#!/bin/python
+# Coded By Aslanz
+# https://github.com/aslanzz
+# https://instagram.com/aslanz17
+# https://youtube.com/aslanz
+# color
+p = "\033[1;37m"
+m = "\033[1;31m"
+b = "\033[1;34m"
+h = "\033[1;32m"
+pe = "\033[00m"
+g = "\033[4m"
+
+import hashlib,sys,os,time
+
+# checking version python
+if sys.version[0] in "":
+     exit("use: python3 md5")
+os.system("bash banner.sh")
+print("")
+def menu():
+    print("""
+\033[1;31mOption                            Description
+\033[00m------                            -----------
+use md5encode                encrypt hash md5
+use md5decode                 decode hash md5
+exit                             exit program
+""")
+
+def encode():
+    print("""
+\033[1;31mOption                            Description
+\033[00m------                            -----------
+set text                   set text ex: admin
+run                        running encode md5
+back                                back menu
+""")
+
+def mainenc():
+    global text
+    while True:
+         aslanz = input(p+""+g+"md5"+pe+" "+pe+"("+m+"encode"+pe+") > ")
+         if aslanz in ['help']:
+            encode()
+         elif 'set text' in aslanz:
+            text = aslanz.split()[(-1)]
+            print(pe+"Text > "+text)
+         elif aslanz == 'run':
+            hash = hashlib.md5(text.encode())
+            print(pe+"HASH >"+h+"",hash.hexdigest())
+         elif aslanz == 'back':
+            md5()
+         else:
+             print(m+""+aslanz+": command not found")
+
+def decode():
+    print("""
+\033[1;31mOption                            Description
+\033[00m------                            -----------
+use brute                 bruteforce hash md5
+use simple         simple bruteforce hash md5
+back                                back menu
+""")
+
+def brute():
+    print("""
+\033[1;31mOption                            Description
+\033[00m------                            -----------
+set hash                    set your hash md5
+set wordlist                set your wordlist
+run                    running bruteforce md5
+back                                back menu
+""")
+
+def simple():
+    print("""
+\033[1;31mOption                            Description
+\033[00m------                            -----------
+set hash                    set your hash md5
+run             running simple bruteforce md5
+back                                back menu
+""")
+
+def mainsimple():
+    global hash
+    while True:
+         indo = input(p+""+g+"md5"+pe+" "+pe+"("+m+"decode/simple"+pe+") > ")
+         if indo == 'help':
+            simple()
+         elif 'set hash' in indo:
+            hash = indo.split()[(-1)]
+            print(pe+"Hash > "+hash)
+         elif indo == 'run':
+            os.system("cd core;bash simple "+hash)
+         elif indo == 'back':
+            maindecode()
+         else:
+              print(m+""+indo+": command not found")
+def mainbrute():
+     global hash
+     global passw
+     while True:
+          aslanz = input(p+""+g+"md5"+pe+" "+pe+"("+m+"decode/brute"+pe+") > ")
+          if aslanz == 'help':
+             brute()
+          elif 'set hash' in aslanz:
+             hash = aslanz.split()[(-1)]
+             print(pe+"Hash > "+hash)
+          elif 'set wordlist' in aslanz:
+             passw = aslanz.split()[(-1)]
+             print(pe+"Wordlist > "+passw)
+          elif aslanz == 'run':
+             os.system("cd core;bash brute "+passw+" "+hash)
+          elif aslanz == 'back':
+             maindecode()
+          else:
+              print(m+""+aslanz+": coomand not found")
+
+def maindecode():
+     while True:
+         mas = input(p+""+g+"md5"+pe+" "+pe+"("+m+"decode"+pe+")"+pe+" > ")
+         if mas == 'help':
+            decode()
+         elif mas == 'use brute':
+            mainbrute()
+         elif mas == 'use simple':
+            mainsimple()
+         elif mas == 'back':
+            md5()
+         else:
+              print(m+""+mas+": command not found")
+
+def md5():
+    while True:
+         safaz = input(p+""+g+"md5"+pe+" > ")
+         if safaz == 'help':
+            menu()
+         elif safaz == 'use md5encode':
+            mainenc()
+         elif safaz == 'use md5decode':
+            maindecode()
+         elif safaz == 'exit':
+            exit()
+         else:
+              print(safaz+": command not found")
+try:
+    md5()
+except KeyboardInterrupt:
+    exit(m+"[!] "+pe+"CTRL + C exit program")
+
